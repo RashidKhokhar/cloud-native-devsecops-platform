@@ -12,6 +12,7 @@ permissions:
   contents: read
   security-events: write
 
+
 env:
   POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
   DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
@@ -147,9 +148,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Start platform with Docker Compose
+      - name: Show Docker logs on failure
+        if: failure()
         run: |
-          docker compose up -d --build
+          docker compose ps -a 
+          docker compose logs --tail=100
 
       - name: Verify containers are running
         run: |
