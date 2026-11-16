@@ -13,6 +13,8 @@ permissions:
   security-events: write
 
 env:
+  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+  DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
   PYTHON_VERSION: '3.12'
   NODE_VERSION: '20'
   BACKEND_IMAGE: secure-platform-backend
