@@ -199,8 +199,10 @@ jobs:
         run: curl --fail --retry 5 --retry-delay 2 --retry-connrefused -I http://localhost:8085
       - name: Run OWASP ZAP baseline scan
         run: |
+          mkdir -p zap-reports
+          chmod 777 zap-reports
           docker run --rm --network host \
-            -v "$PWD:/zap/wrk:rw" \
+            -v "$PWD/zap-reports:/zap/wrk:rw" \
             ghcr.io/zaproxy/zaproxy:stable \
             zap-baseline.py -t http://localhost:8085 -r zap-report.html
       - name: Stop containers
