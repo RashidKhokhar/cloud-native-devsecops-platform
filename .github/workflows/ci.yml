@@ -1,3 +1,4 @@
+
 name: DevSecOps Security Pipeline
 
 on:
@@ -16,14 +17,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Fetch complete history for secret scanning
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
+      # Scan repository history for exposed secrets
       - name: Scan secrets with Gitleaks
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          docker run --rm \
+            -v "$PWD:/repo" \
+            -w /repo \
+            zricethezav/gitleaks:v8.24.3 \
+            git --redact --verbose --exit-code 1
 
+      # Scan dependencies, secrets, and misconfigurations
       - name: Scan filesystem with Trivy
         uses: aquasecurity/trivy-action@v0.35.0
         with:
@@ -33,3 +42,4 @@ jobs:
           severity: HIGH,CRITICAL
           exit-code: '1'
           ignore-unfixed: true
+
