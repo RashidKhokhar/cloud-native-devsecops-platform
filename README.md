@@ -30,7 +30,7 @@ The platform follows a layered architecture designed for secure, scalable, and a
 
 ### High-Level System Architecture
 
-![Architecture Diagram](docs/images/mermaid-diagram%20(1).png)
+![Architecture Diagram](docs/images/architecture.png)
 
 ### Architectural Components
 
