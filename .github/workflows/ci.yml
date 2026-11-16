@@ -45,7 +45,7 @@ jobs:
 
       - name: Audit backend dependencies
         run: |
-          pip-audit -r app/backend/requirements.txt --format human
+          pip-audit -r app/backend/requirements.txt --format columns
 
       - name: Install frontend dependencies
         run: |
