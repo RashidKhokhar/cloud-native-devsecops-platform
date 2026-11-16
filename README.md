@@ -49,7 +49,7 @@ The intended architecture follows a layered, secure, cloud-native pattern.
 
 ### System Diagram
 
-![Architecture Diagram](docs/images/mermaid-diagram%20(1).png)
+![Architecture Diagram](docs/images/architecture.png)
 
 ### Architecture Layers
 
