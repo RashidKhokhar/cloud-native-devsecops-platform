@@ -2,6 +2,10 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
+RUN apt-get update \
+    && apt-get install -y --only-upgrade zlib1g \
+    && dpkg-query -W zlib1g \
+    && rm -rf /var/lib/apt/lists/*
 RUN groupadd --system app && useradd --system --gid app app
 
 COPY requirements.txt .
