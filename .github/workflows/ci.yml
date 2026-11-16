@@ -114,7 +114,11 @@ jobs:
     name: SonarQube analysis
     runs-on: ubuntu-latest
     needs: sast
-    if: ${{ secrets.SONAR_TOKEN != '' }}
+    if: ${{ env.SONAR_TOKEN != '' }}
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_ORG: ${{ secrets.SONAR_ORG || 'your-org' }}
+      SONAR_PROJECT: ${{ secrets.SONAR_PROJECT || 'secure-kubernetes-devsecops-platform' }}
 
     steps:
       - name: Checkout repository
@@ -129,8 +133,8 @@ jobs:
         with:
           projectBaseDir: .
           args: >
-            -Dsonar.organization=${{ secrets.SONAR_ORG || 'your-org' }}
-            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT || 'secure-kubernetes-devsecops-platform' }}
+            -Dsonar.organization=${{ env.SONAR_ORG }}
+            -Dsonar.projectKey=${{ env.SONAR_PROJECT }}
 
   integration-tests:
     name: Functional and integration tests
